@@ -18,6 +18,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
+    "dev": "next dev",
     "prisma:seed": "ts-node ./prisma/seed.ts"
   }
 }
