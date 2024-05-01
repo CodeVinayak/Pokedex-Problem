@@ -4,7 +4,9 @@
     "@trpc/client": "^10.45.2",
     "@trpc/next": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
-    "@trpc/server": "^10.45.2",
+    "@trpc/server": "^10.45.2"
+  },
+  "devDependencies": {
     "prisma": "^5.13.0"
   }
 }
