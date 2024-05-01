@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { trpc } from '../utils/trpc';
 
 const PokemonForm: React.FC = () => {
-  const [pokemonName, setPokemonName] = useState('');
-  const { data: pokemon, isLoading } = trpc.getPokemon.useQuery(
-    { input: pokemonName },
-    { enabled: pokemonName !== '' }
-  );
+    const { data: pokemon, isLoading } = trpc.getPokemon.useQuery(
+      { input: pokemonName },
+      { enabled: pokemonName !== '' }
+    );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

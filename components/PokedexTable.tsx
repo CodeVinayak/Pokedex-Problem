@@ -1,5 +1,6 @@
+// components/PokedexTable.tsx
 import * as React from 'react';
-import { Grid, Typography, Box, Image } from '@mui/material';
+import { Grid, Typography, Box, Avatar } from '@mui/material';
 
 interface PokedexTableProps {
   pokemonArray: {
@@ -14,12 +15,14 @@ const PokedexTable: React.FC<PokedexTableProps> = ({ pokemonArray }) => {
   return (
     <Grid container spacing={2}>
       {pokemonArray.map((pokemon) => (
-        <Grid item key={pokemon.id} xs={12}>
-          <Typography variant="h6">{pokemon.name}</Typography>
-          <Typography variant="body1">ID: {pokemon.id}</Typography>
-          <Typography variant="body1">Types: {pokemon.types.join(', ')}</Typography>
-          <Box sx={{ width: 50, height: 50 }}>
-            <Image src={pokemon.sprite} alt={pokemon.name} />
+        <Grid item xs={12} sm={6} md={4} key={pokemon.id}>
+          <Box display="flex" alignItems="center">
+            <Avatar src={pokemon.sprite} alt={pokemon.name} />
+            <Box ml={2}>
+              <Typography variant="h6">{pokemon.name}</Typography>
+              <Typography variant="body1">ID: {pokemon.id}</Typography>
+              <Typography variant="body1">Types: {pokemon.types.join(', ')}</Typography>
+            </Box>
           </Box>
         </Grid>
       ))}

@@ -1,33 +1,25 @@
 import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
-import { prisma } from '../prisma'; 
+import { prisma } from '../prisma';
+
 const t = initTRPC.create();
 
 export const appRouter = t.router({
-  getPokemon: t.procedure
-    .input(z.string())
-    .query(async ({ input }) => {
-      const pokemon = await prisma.pokemon.findUnique({
-        where: { name: input },
-      });
-      return pokemon;
-    }),
-  getPokemonArray: t.procedure
-    .input(z.array(z.string()))
-    .query(async ({ input }) => {
-      const pokemonArray = await prisma.pokemon.findMany({
-        where: { name: { in: input } },
-      });
-      return pokemonArray;
-    }),
-  getFilteredPokemonArray: t.procedure
-    .input(z.object({ type: z.string().optional() }))
-    .query(async ({ input }) => {
-      const pokemonArray = await prisma.pokemon.findMany({
-        where: input.type ? { types: { has: input.type } } : {},
-      });
-      return pokemonArray;
-    }),
-});
+    getPokemon: t.procedure
+      .input(z.string())
+      .query(async ({ input }) => {
+        const pokemon = await prisma.pokemon.findUnique({
+          where: { name: input },
+        });
+        if (!pokemon) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: `Pokemon with name ${input} not found`,
+          });
+        }
+        return pokemon;
+      }),
+    // ... other procedures
+  });
 
-export type AppRouter = typeof appRouter;
+  export type AppRouter = typeof appRouter;
