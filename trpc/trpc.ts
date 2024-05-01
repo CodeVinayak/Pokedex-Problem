@@ -1,15 +1,7 @@
+import { createReactQueryHooks } from '@trpc/react';
 import { initTRPC } from '@trpc/server';
-import { initTRPC } from '@trpc/client';
+import type { AppRouter } from '../server/router';
 
 const t = initTRPC.create();
 
-export const trpc = t.createTRPCContext();
-export function withTRPC(App: React.ComponentType) {
-  return function TRPCApp(props: any) {
-    return (
-      <TRPCContext.Provider value={trpc}>
-        <App {...props} />
-      </TRPCContext.Provider>
-    );
-  };
-}
+export const trpc = createReactQueryHooks<AppRouter>();
