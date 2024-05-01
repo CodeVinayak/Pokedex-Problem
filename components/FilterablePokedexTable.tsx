@@ -1,34 +1,27 @@
-import * as React from 'react';
-import PokemonTypeSelection from '../components/PokemonTypeSelection';
-import PokedexTable from '../components/PokedexTable';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { trpc } from '../utils/trpc';
+import PokemonTypeSelection from './PokemonTypeSelection';
+import PokedexTable from './PokedexTable';
 
-interface FilterablePokedexTableProps {
-  pokemonArray: {
-    id: number;
-    name: string;
-    types: string[];
-    sprite: string;
-  }[];
-  selectedType: string | undefined;
-}
+const FilterablePokedexTable: React.FC = () => {
+  const [selectedType, setSelectedType] = useState<string | undefined>(undefined);
 
-const FilterablePokedexTable: React.FC<FilterablePokedexTableProps> = ({
-  pokemonArray,
-  selectedType,
-}) => {
-  const filteredPokemonArray = pokemonArray.filter((pokemon) =>
-    selectedType ? pokemon.types.includes(selectedType) : true
-  );
+  const { data: pokemonArray, isLoading } = useQuery({
+    queryKey: ['getFilteredPokemonArray', { type: selectedType }],
+    queryFn: () =>
+      trpc.getFilteredPokemonArray.query({ type: selectedType }),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>
       <PokemonTypeSelection
         selectedType={selectedType}
-        selectType={(type) => console.log(type)}
+        selectType={setSelectedType}
       />
-      <PokedexTable pokemonArray={filteredPokemonArray} />
+      <PokedexTable pokemonArray={pokemonArray || []} />
     </div>
   );
 };
-
-export default FilterablePokedexTable;

@@ -1,9 +1,10 @@
-import { router, publicProcedure } from '@trpc/client';
+import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
-import { prisma } from '../prisma';
+import { prisma } from '../prisma'; 
+const t = initTRPC.create();
 
-const pokemonRouter = router({
-  getPokemon: publicProcedure
+export const appRouter = t.router({
+  getPokemon: t.procedure
     .input(z.string())
     .query(async ({ input }) => {
       const pokemon = await prisma.pokemon.findUnique({
@@ -11,7 +12,7 @@ const pokemonRouter = router({
       });
       return pokemon;
     }),
-  getPokemonArray: publicProcedure
+  getPokemonArray: t.procedure
     .input(z.array(z.string()))
     .query(async ({ input }) => {
       const pokemonArray = await prisma.pokemon.findMany({
@@ -19,7 +20,7 @@ const pokemonRouter = router({
       });
       return pokemonArray;
     }),
-  getFilteredPokemonArray: publicProcedure
+  getFilteredPokemonArray: t.procedure
     .input(z.object({ type: z.string().optional() }))
     .query(async ({ input }) => {
       const pokemonArray = await prisma.pokemon.findMany({
@@ -29,4 +30,4 @@ const pokemonRouter = router({
     }),
 });
 
-export default pokemonRouter;
+export type AppRouter = typeof appRouter;
