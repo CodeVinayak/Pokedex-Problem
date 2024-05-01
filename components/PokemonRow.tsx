@@ -1,4 +1,3 @@
-// components/PokemonRow.tsx
 import * as React from 'react';
 import { Grid, Typography, Box, Image } from '@mui/material';
 

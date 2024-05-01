@@ -1,4 +1,3 @@
-// components/PokemonTypeSelection.tsx
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { trpc } from '../trpc';

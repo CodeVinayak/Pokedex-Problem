@@ -1,4 +1,3 @@
-// components/FilterablePokedexTable.tsx
 import * as React from 'react';
 import PokemonTypeSelection from '../components/PokemonTypeSelection';
 import PokedexTable from '../components/PokedexTable';
