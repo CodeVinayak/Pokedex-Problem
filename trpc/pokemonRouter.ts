@@ -1,4 +1,5 @@
-import { createTRPCRouter } from '@trpc/server';
+// import { createTRPCRouter } from '@trpc/server';
+import { createTRPCRouter } from '@trpc/server/router';
 import { z } from 'zod';
 import { prisma } from '../prisma';
 

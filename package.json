@@ -4,10 +4,14 @@
     "@trpc/client": "^10.45.2",
     "@trpc/next": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
-    "@trpc/server": "^10.45.2"
+    "@trpc/server": "^10.45.2",
+    "zod": "^3.23.5"
   },
   "devDependencies": {
-    "prisma": "^5.13.0",
-    "seed": "ts-node ./prisma/seed.ts"
+    "@types/node": "^20.12.7",
+    "prisma": "^5.13.0"
+  },
+  "scripts": {
+    "prisma:seed": "ts-node "
   }
 }
